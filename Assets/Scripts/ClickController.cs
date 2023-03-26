@@ -39,6 +39,7 @@ public class ClickController : MonoBehaviour
     /// 一致したらGameClearを返します・答えじゃないキャラクターをクリックした場合GameOverになるようにした</summary>
     string Click()
     {
+        Debug.Log("clear");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _rayLength,_layerMask);
         //クリックされたオブジェクトがキャラクターだった時
