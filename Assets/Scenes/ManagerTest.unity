@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9cee341a58f92468aca7545b3a08d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: 0
+  _sceneName: 1
   _scorePanel: {fileID: 469668778}
   _timerText: {fileID: 358594434}
 --- !u!114 &408043505
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b896c7d627a7a7c4abc051d914b371db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeLimit: 10
+  _timeLimit: 60
 --- !u!1 &469668776
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 469668779}
   - component: {fileID: 469668778}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ScorePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
