@@ -36,8 +36,17 @@ public class ClickController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _rayLength,_layerMask);
         if(hit.collider)
         {
-            Debug.Log("IDを取得しました");
-            return true;
+            //キャラクターのIDを取得
+            int ID = hit.collider.gameObject.GetComponent<CharacterController>().CharacterID;
+            //答えとなるIDと一致していたら
+            if(ID == _id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
