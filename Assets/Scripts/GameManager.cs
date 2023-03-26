@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
         {
             _isPlaying = true;
         }
+        else
+        {
+            _isPlaying = false;
+        }
     }
 
     private void Update()
