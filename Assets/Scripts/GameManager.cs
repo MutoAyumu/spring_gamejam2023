@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             //時間切れ
             if (_timer <= 0f)
             {
-                _scorePanel.gameObject?.SetActive(true);
+                //_scorePanel.gameObject?.SetActive(true);
                 GameOver();
             }
         }
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        _scorePanel.gameObject?.SetActive(true);
         _score = 0;
 
         _isPlaying = false;
@@ -81,10 +82,11 @@ public class GameManager : MonoBehaviour
         _scoreText.text = "SCORE : " + _score.ToString();
 
         _isPlaying = false;
+        SceneLoad();
     }
 
     /// <summary> シーン遷移 </summary>
-    public void SceneLoad()
+    private void SceneLoad()
     {
         SceneManager.LoadScene(_nextScene);
     }
