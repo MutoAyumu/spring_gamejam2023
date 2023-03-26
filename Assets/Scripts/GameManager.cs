@@ -82,13 +82,13 @@ public class GameManager : MonoBehaviour
         _scoreText.text = "SCORE : " + _score.ToString();
 
         _isPlaying = false;
-        SceneLoad();
+        SceneManager.LoadScene(_nextScene);
     }
 
     /// <summary> シーン遷移 </summary>
-    private void SceneLoad()
+    public void SceneLoad(string sceneName)
     {
-        SceneManager.LoadScene(_nextScene);
+        SceneManager.LoadScene(sceneName);
     }
 
     #region GMAttachment.Awake() で実行する処理
