@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameManagerAttachment _attachment = default;
     [Header("テスト")]
     [SerializeField] private bool _isPlaying = false;
 
@@ -19,7 +18,6 @@ public class GameManager : MonoBehaviour
     private string _nextScene = "";
     private int _answerID = 9999;
 
-    public GameManagerAttachment Attachment { get => _attachment; set => _attachment = value; }
     public static GameManager Instance => _instance;
     public int AnswerID { get => _answerID; protected set => _answerID = value; }
 

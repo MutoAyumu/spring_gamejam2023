@@ -20,11 +20,6 @@ public class GameManagerAttachment : MonoBehaviour
     {
         _manager = GameObject.Find("Manager").GetComponent<GameManager>();
 
-        if (_manager.Attachment == null)
-        {
-            _manager.Attachment = this;
-        }
-
         //値の初期化
         _manager.SetTimer(_timeLimit);
         _manager.SceneNameUpdate(_nextScene);
