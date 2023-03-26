@@ -6,13 +6,14 @@ public class ClickController : MonoBehaviour
 {
     [SerializeField, Tooltip("レイヤー")] LayerMask _layerMask;
     [SerializeField, Tooltip("Rayの長さ")] float _rayLength;
+    
     /// <summary>答えとなる人物のID</summary>
     int _id;
     
     void Start()
     {
         //GameManagerから答えとなるIDを参照
-        //_id = FindObjectOfType<GameManager>().ID;
+       _id = GameManager.Instance.AnswerID;
     }
 
    　
@@ -21,19 +22,26 @@ public class ClickController : MonoBehaviour
         //左クリックしたら
         if(Input.GetMouseButton(0))
         {
-            //戻り値がTrueの時
-            if(Click())
+            if(Click() == "GameClear")
             {
                 //GameManagerのクリアの処理を行う関数を呼ぶ
+                GameManager.Instance.GameClear();
+            }
+            else if(Click() == "GameOver")
+            {
+                //答えじゃないキャラクターをクリックした時点でGameManagerのGameOverを呼ぶ
+                GameManager.Instance.GameOver();
             }
         }
     }
 
-    /// <summary>Rayを飛ばし当たったオブジェクト(キャラクター)のIDが答えとなるIDと一致するかどうか・一致したらTrueを返します</summary>
-    bool Click()
+    /// <summary>Rayを飛ばし当たったオブジェクト(キャラクター)のIDが答えとなるIDと一致するかどうか・
+    /// 一致したらGameClearを返します・答えじゃないキャラクターをクリックした場合GameOverになるようにした</summary>
+    string Click()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _rayLength,_layerMask);
+        //クリックされたオブジェクトがキャラクターだった時
         if(hit.collider)
         {
             //キャラクターのIDを取得
@@ -41,16 +49,17 @@ public class ClickController : MonoBehaviour
             //答えとなるIDと一致していたら
             if(ID == _id)
             {
-                return true;
+                return "GameClear";
             }
+            //一致していなかったら
             else
             {
-                return false;
+                return "GameOver";
             }
         }
         else
         {
-            return false;
+            return "None";
         }
     }
 }
