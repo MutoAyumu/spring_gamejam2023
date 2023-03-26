@@ -29,8 +29,8 @@ public class ClickController : MonoBehaviour
             }
             else if(Click() == "GameOver")
             {
-                //答えじゃないキャラクターをクリックした時点でGameOverにする
-                //そうしない場合は不正解の音をだすなどの処理をかく
+                //答えじゃないキャラクターをクリックした時点でGameManagerのGameOverを呼ぶ
+                GameManager.Instance.GameOver();
             }
         }
     }
