@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float _stopInterval = 0.5f;
     [SerializeField] float _distance = 0.2f;
     [SerializeField] PointHandle _pointHandle;
+    [SerializeField] GameObject[] _changeSpriteRoot = new GameObject[2];
     [SerializeField] StartEndPoint _movePoint;
 
     Rigidbody2D _rb;
@@ -56,6 +57,7 @@ public class CharacterController : MonoBehaviour
         _rb.velocity = dir.normalized * _moveSpeed;
 
         Flip(dir.x);
+        ChangeSprite(dir.y);
     }
 
     void CoolTime()
@@ -87,6 +89,20 @@ public class CharacterController : MonoBehaviour
         else
         {
             _transform.localScale = new Vector3(-Mathf.Abs(scale.x), scale.y, scale.z);
+        }
+    }
+
+    void ChangeSprite(float h)
+    {
+        if(h < 0)
+        {
+            _changeSpriteRoot[0].gameObject.SetActive(true);
+            _changeSpriteRoot[1].gameObject.SetActive(false);
+        }
+        else
+        {
+            _changeSpriteRoot[0].gameObject.SetActive(false);
+            _changeSpriteRoot[1].gameObject.SetActive(true);
         }
     }
 }
