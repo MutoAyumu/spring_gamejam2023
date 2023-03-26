@@ -6,13 +6,14 @@ public class ClickController : MonoBehaviour
 {
     [SerializeField, Tooltip("レイヤー")] LayerMask _layerMask;
     [SerializeField, Tooltip("Rayの長さ")] float _rayLength;
+    
     /// <summary>答えとなる人物のID</summary>
     int _id;
     
     void Start()
     {
         //GameManagerから答えとなるIDを参照
-        //_id = FindObjectOfType<GameManager>().ID;
+       _id = GameManager.Instance.AnswerID;
     }
 
    　
@@ -24,11 +25,12 @@ public class ClickController : MonoBehaviour
             if(Click() == "GameClear")
             {
                 //GameManagerのクリアの処理を行う関数を呼ぶ
+                GameManager.Instance.GameClear();
             }
             else if(Click() == "GameOver")
             {
                 //答えじゃないキャラクターをクリックした時点でGameOverにする
-                //そうしない場合は不正解の音をだすなど
+                //そうしない場合は不正解の音をだすなどの処理をかく
             }
         }
     }
