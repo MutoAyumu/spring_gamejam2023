@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _scoreText = default;
     [Header("テスト")]
     [SerializeField] private Text _timerText = default;
+    [SerializeField] private bool _isPlaying = false;
 
-    private bool _isPlaying = false;
     private int _score = 0;
     private float _timer = 0f;
     private static GameManager _instance = default;
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        //シングルトン
         if (_instance == null)
         {
             _instance = this;
@@ -43,7 +44,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _scorePanel.gameObject.SetActive(false);
+        _scorePanel.gameObject?.SetActive(false);
+
+        //ゲームシーンだったら、ゲームを開始
+        if (SceneManager.GetActiveScene().name ==
+            _scenes[SceneNames.GAME_SCENE])
+        {
+            _isPlaying = true;
+        }
     }
 
     private void Update()
@@ -67,8 +75,8 @@ public class GameManager : MonoBehaviour
         _score = 0;
 
         _isPlaying = false;
-        //TitleSceneに戻る(Fadeとかあっても良いかも)
-        SceneManager.LoadScene(_scenes[SceneNames.TITLE_SCENE]);
+        //ResultSceneに移行
+        SceneManager.LoadScene(_scenes[SceneNames.RESULT_SCENE]);
         Debug.Log("GameOver");
     }
 
@@ -79,10 +87,11 @@ public class GameManager : MonoBehaviour
         _scoreText.text = "SCORE : " + _score.ToString();
 
         _isPlaying = false;
-        //シーン遷移(修正あるかも)
+        //シーン遷移
         SceneManager.LoadScene(_scenes[_nextScene]);
     }
 
+    #region GMAttachment.Awake() で実行する処理
     /// <summary> Timerの初期設定 </summary>
     public void SetTimer(float value)
     {
@@ -113,7 +122,7 @@ public class GameManager : MonoBehaviour
         //テストシーンの場合
         else
         {
-            _nextScene = SceneNames.TITLE_SCENE;
+            _nextScene = SceneNames.GAME_SCENE;
         }
         Debug.Log($"次の遷移先は {_nextScene} です");
     }
@@ -123,8 +132,9 @@ public class GameManager : MonoBehaviour
     {
         //定数は良くない
         _answerID = 9999;
-        Debug.Log($"Answer == {_answerID}");
+        Debug.Log($"AnswerID == {_answerID}");
     }
+    #endregion
 }
 
 public enum SceneNames
