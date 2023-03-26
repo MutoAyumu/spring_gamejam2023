@@ -30,10 +30,10 @@ public class CharacterController : MonoBehaviour
         var points = _pointHandle.MovePointArray;
         var r = Random.Range(0, points.Length);
         var point = points[r];
-        _movePoint.Start = transform.TransformPoint(point.Start);
-        _movePoint.End = transform.TransformPoint(point.End);
+        _movePoint.Start = _transform.TransformPoint(point.Start);
+        _movePoint.End = _transform.TransformPoint(point.End);
         _nextPoint = _movePoint.End;
-        transform.position = _movePoint.Start;
+        _transform.position = _movePoint.Start;
     }
 
     private void FixedUpdate()
@@ -54,6 +54,8 @@ public class CharacterController : MonoBehaviour
 
         var dir = _nextPoint - pos;
         _rb.velocity = dir.normalized * _moveSpeed;
+
+        Flip(dir.x);
     }
 
     void CoolTime()
@@ -71,6 +73,20 @@ public class CharacterController : MonoBehaviour
             }
 
             _nextPoint = point;
+        }
+    }
+
+    void Flip(float h)
+    {
+        var scale = _transform.localScale;
+
+        if(h >= 0)
+        {
+            _transform.localScale = new Vector3(Mathf.Abs(scale.x), scale.y, scale.z);
+        }
+        else
+        {
+            _transform.localScale = new Vector3(-Mathf.Abs(scale.x), scale.y, scale.z);
         }
     }
 }
