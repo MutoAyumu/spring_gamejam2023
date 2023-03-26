@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("遷移先のシーン")]
     [SerializeField] private SceneNames _nextScene = SceneNames.TITLE_SCENE;
     [SerializeField] private Image _scorePanel = default;
+    [SerializeField] private Text _scoreText = default;
     [Header("テスト")]
     [SerializeField] private Text _timerText = default;
 
+    private bool _isPlaying = false;
     private int _score = 0;
     private float _timer = 0f;
     private static GameManager _instance = default;
@@ -46,19 +48,25 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        _timer -= Time.deltaTime;
-        _timerText.text = _timer.ToString("F0");
-
-        if (_timer <= 0f)
+        if (_isPlaying)
         {
-            _scorePanel.gameObject.SetActive(true);
-            GameOver();
+            _timer -= Time.deltaTime;
+            _timerText.text = _timer.ToString("F0");
+
+            //時間切れ
+            if (_timer <= 0f)
+            {
+                _scorePanel.gameObject.SetActive(true);
+                GameOver();
+            }
         }
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         _score = 0;
+
+        _isPlaying = false;
         //TitleSceneに戻る(Fadeとかあっても良いかも)
         SceneManager.LoadScene(_scenes[SceneNames.TITLE_SCENE]);
         Debug.Log("GameOver");
@@ -68,10 +76,14 @@ public class GameManager : MonoBehaviour
     {
         //スコアの増加
         _score = (int)(_timer * 100);
+        _scoreText.text = "SCORE : " + _score.ToString();
+
+        _isPlaying = false;
         //シーン遷移(修正あるかも)
         SceneManager.LoadScene(_scenes[_nextScene]);
     }
 
+    /// <summary> Timerの初期設定 </summary>
     public void SetTimer(float value)
     {
         _timer = value;
@@ -106,6 +118,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"次の遷移先は {_nextScene} です");
     }
 
+    /// <summary> 答えのIDを設定する </summary>
     public void IdUpdate()
     {
         //定数は良くない
