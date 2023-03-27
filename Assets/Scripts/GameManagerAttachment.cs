@@ -28,4 +28,9 @@ public class GameManagerAttachment : MonoBehaviour
 
         Debug.Log("実行済");
     }
+
+    private void Start()
+    {
+        _manager.Start();
+    }
 }
