@@ -9,9 +9,12 @@ public class ClickController : MonoBehaviour
     
     /// <summary>答えとなる人物のID</summary>
     int _id;
-    
+    AudioSource _audioSource;
+    [SerializeField,Tooltip("正解音")] AudioClip _clearclip;
+    [SerializeField, Tooltip("不正解音")] AudioClip _gameoverclip;
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         //GameManagerから答えとなるIDを参照
        _id = GameManager.Instance.AnswerID;
     }
@@ -24,11 +27,13 @@ public class ClickController : MonoBehaviour
         {
             if(Click() == "GameClear")
             {
+                _audioSource.PlayOneShot(_clearclip);
                 //GameManagerのクリアの処理を行う関数を呼ぶ
                 GameManager.Instance.GameClear();
             }
             else if(Click() == "GameOver")
             {
+                _audioSource.PlayOneShot(_gameoverclip);
                 //答えじゃないキャラクターをクリックした時点でGameManagerのGameOverを呼ぶ
                 GameManager.Instance.GameOver();
             }
