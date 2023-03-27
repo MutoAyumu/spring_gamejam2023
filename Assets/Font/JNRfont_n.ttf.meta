@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: be2aa81f6761511428ad68bb38007f99
+guid: fc62d44db5088d54ab2f9a703c63e629
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - JNR_fontA
+  - JNR_Font
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
