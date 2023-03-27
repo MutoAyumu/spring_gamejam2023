@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance = default;
 
-    private Image _scorePanel = default;
+    /// <summary> GameOver時に表示されるPanel </summary>
+    private Image _overPanel = default;
     private Text _scoreText = default;
     private Text _timerText = default;
 
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance => _instance;
     public int AnswerID { get => _answerID; protected set => _answerID = value; }
+    /// <summary> ResultSceneで参照 </summary>
+    public Text Score { get; set; }
 
     private void Awake()
     {
@@ -35,9 +38,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Start()
     {
-        _scorePanel.gameObject?.SetActive(false);
+        //GameManagerのStart()は、最初のインスタンス時にしか呼ばれない
+        //※シングルトンにすると、2回目以降に呼ばれなくなるため、publicにして別の場所で呼ぶ
+
+        _overPanel.gameObject?.SetActive(false);
 
         //ゲームシーンだったら、ゲームを開始
         if (SceneManager.GetActiveScene().name == "MainScene")
@@ -68,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        _scorePanel.gameObject?.SetActive(true);
+        _overPanel.gameObject?.SetActive(true);
         _score = 0;
 
         _isPlaying = false;
@@ -83,12 +89,6 @@ public class GameManager : MonoBehaviour
 
         _isPlaying = false;
         SceneManager.LoadScene(_nextScene);
-    }
-
-    /// <summary> シーン遷移 </summary>
-    public void SceneLoad(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
     }
 
     #region GMAttachment.Awake() で実行する処理
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
     /// <summary> UIの初期設定 </summary>
     public void UISetting(Image result, Text score, Text timer)
     {
-        _scorePanel = result;
+        _overPanel = result;
         _scoreText = score;
         _timerText = timer;
     }
