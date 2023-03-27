@@ -15,6 +15,7 @@ public class GameManagerAttachment : MonoBehaviour
     [SerializeField] private int _answerID = 0;
 
     [SerializeField] Unmask _unmask;
+    [SerializeField] Animator _addScoreText;
 
     private GameManager _manager = default;
 
@@ -29,6 +30,21 @@ public class GameManagerAttachment : MonoBehaviour
         _manager.UISetting(_scorePanel, _scoreText, _timerText);
 
         Debug.Log("実行済");
+    }
+
+    private void OnEnable()
+    {
+        _manager._gameClear += SetScoreText;
+    }
+    private void OnDisable()
+    {
+        _manager._gameClear -= SetScoreText;
+    }
+
+    void SetScoreText()
+    {
+        _addScoreText.gameObject.SetActive(true);
+        _addScoreText.transform.position = Input.mousePosition;
     }
 
     private void Start()

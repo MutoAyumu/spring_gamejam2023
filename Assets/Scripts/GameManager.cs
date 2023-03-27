@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using UniRx;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     private int _answerID = 9999;
 
     public event Action _gameOver;
+    public event Action _gameClear;
 
     public static GameManager Instance => _instance;
     public int AnswerID { get => _answerID; protected set => _answerID = value; }
@@ -92,8 +94,12 @@ public class GameManager : MonoBehaviour
         _score += 100;
         _scoreText.text = "SCORE : " + _score.ToString();
 
+        _gameClear?.Invoke();
+
         _isPlaying = false;
-        SceneManager.LoadScene(_nextScene);
+
+        Observable.Timer(TimeSpan.FromSeconds(1))
+    .Subscribe(_ => SceneManager.LoadScene(_nextScene));
     }
 
     #region GMAttachment.Awake() で実行する処理
