@@ -10,4 +10,10 @@ public class SceneContorller : MonoBehaviour
     {
         SceneManager.LoadScene(_sceneName);
     }
+
+    /// <summary> ƒV[ƒ“‘JˆÚ </summary>
+    public void SceneLoad(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 }
