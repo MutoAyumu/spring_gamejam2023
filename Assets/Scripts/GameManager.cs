@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
     public int AnswerID { get => _answerID; protected set => _answerID = value; }
     /// <summary> ResultSceneで参照 </summary>
-    public int Score { get; set; }
+    public int Score { get => _score; protected set => _score = value; }
 
     private void Awake()
     {
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         //GameManagerのStart()は、最初のインスタンス時にしか呼ばれない
         //※シングルトンにすると、2回目以降に呼ばれなくなるため、publicにして別の場所で呼ぶ
 
+
+        _score = 0;
         _overPanel.gameObject?.SetActive(false);
 
         //ゲームシーンだったら、ゲームを開始
