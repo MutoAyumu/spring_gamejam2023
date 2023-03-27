@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,9 +16,11 @@ public class GameManager : MonoBehaviour
     private Text _timerText = default;
 
     private int _score = 0;
-    private float _timer = 0f;
+    private float _timer = 60f;
     private string _nextScene = "";
     private int _answerID = 9999;
+
+    public event Action _gameOver;
 
     public static GameManager Instance => _instance;
     public int AnswerID { get => _answerID; protected set => _answerID = value; }
@@ -43,8 +46,6 @@ public class GameManager : MonoBehaviour
         //GameManagerのStart()は、最初のインスタンス時にしか呼ばれない
         //※シングルトンにすると、2回目以降に呼ばれなくなるため、publicにして別の場所で呼ぶ
 
-
-        _score = 0;
         _overPanel.gameObject?.SetActive(false);
 
         //ゲームシーンだったら、ゲームを開始
@@ -79,6 +80,8 @@ public class GameManager : MonoBehaviour
         _overPanel.gameObject?.SetActive(true);
         _score = 0;
 
+        _gameOver?.Invoke();
+
         _isPlaying = false;
         Debug.Log("GameOver");
     }
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         //スコアの増加
-        _score = (int)(_timer * 100);
+        _score += 100;
         _scoreText.text = "SCORE : " + _score.ToString();
 
         _isPlaying = false;
@@ -97,8 +100,8 @@ public class GameManager : MonoBehaviour
     /// <summary> Timerの初期設定 </summary>
     public void SetTimer(float value)
     {
-        _timer = value;
-        Debug.Log("Timer 初期設定");
+        _timer += value;
+        Debug.Log("Timer 更新");
     }
 
     /// <summary> 遷移先のシーンの変更 </summary>

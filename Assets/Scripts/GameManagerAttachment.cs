@@ -11,7 +11,7 @@ public class GameManagerAttachment : MonoBehaviour
     [SerializeField] private Text _timerText = default;
     [Tooltip("制限時間")]
     [Range(20f, 200f)]
-    [SerializeField] private float _timeLimit = 60f;
+    [SerializeField] private float _timeLimit = 5f;
     [SerializeField] private int _answerID = 0;
 
     [SerializeField] Unmask _unmask;
