@@ -106,6 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8648974166644895522}
   - component: {fileID: 8743890084365437867}
+  - component: {fileID: -2534451985504563584}
   m_Layer: 0
   m_Name: Charactor_04
   m_TagString: Untagged
@@ -144,6 +145,17 @@ MonoBehaviour:
   MovePointArray:
   - Start: {x: 1, y: 1.3523383, z: 0}
     End: {x: -1, y: 0, z: 0}
+--- !u!210 &-2534451985504563584
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648974166644895525}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &8881129171051741976
 PrefabInstance:
   m_ObjectHideFlags: 0
