@@ -14,6 +14,8 @@ public class GameManagerAttachment : MonoBehaviour
     [SerializeField] private float _timeLimit = 60f;
     [SerializeField] private int _answerID = 0;
 
+    [SerializeField] Unmask _unmask;
+
     private GameManager _manager = default;
 
     private void Awake()
@@ -32,5 +34,11 @@ public class GameManagerAttachment : MonoBehaviour
     private void Start()
     {
         _manager.Start();
+
+        Cursor.visible = false;
+    }
+    private void Update()
+    {
+        _unmask.transform.position = Input.mousePosition;
     }
 }
