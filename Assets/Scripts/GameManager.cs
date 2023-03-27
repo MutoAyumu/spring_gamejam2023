@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
     public int AnswerID { get => _answerID; protected set => _answerID = value; }
     /// <summary> ResultSceneで参照 </summary>
-    public Text Score { get; set; }
+    public int Score { get; set; }
 
     private void Awake()
     {
